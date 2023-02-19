@@ -1,22 +1,30 @@
 const fetch = require("node-fetch");
 const json = require("json");
 
-var street;
-var city;
-
-var url = "https://geocoding.geo.census.gov/geocoder/geographies/address?street=" 
-	+ street + "&city=" + city 
-	+ "&state=CA&benchmark=Public_AR_Census2020&vintage=Census2020_Census2020&layers=10&format=json";
-
-var requestOptions = {
-    Method: 'GET'
+var data = {
+	street: `${streetIn}`,
+	city: `${cityIn}`,
+	state: "CA",
+	benchmark: "Public_AR_Census2020",
+	vintage: "Census2020_Census2020",
+	layers: "10",
+	format: "json"
 };
 
-//make query using fetch
-var output = fetch(url, requestOptions)
-	//.then -> go do something else and come back when previous call finished
-	.then(response => response.json())
-	.then(result => handleOutput(result))
-	//catch all errors to not kill all
-	.catch(error => console.log('error', error));
+fetch("https://geocoding.geo.census.gov/geocoder/geographies/address", {
+	method: "POST", // or 'PUT'
+	headers: {
+		"Content-Type": "application/json",
+	},
+	body: JSON.stringify(data),
+})
+	.then((response) => response.json())
+	.then((data) => {
+		console.log("Success:", data);
+	})
+	.catch((error) => {
+		console.error("Error:", error);
+	});
 
+var geoId = response['result']['geographies']['Census Blocks'][0]['GEOID'];
+geoId = geoId.slice(0,10);
