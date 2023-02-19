@@ -11,6 +11,7 @@ var requestOptions = {
     headers: {
         'Content-Type': 'application/json',
     },
+    // place is the json of street and city
     body: JSON.stringify(place),
 };
 
@@ -20,11 +21,11 @@ var output = fetch(url, requestOptions)
 	.then((response) => response.json())
 	.then((result) => {
         console.log(result);
-        if(result.name) {
-            document.getElementById("title").innerHTML = result.name;
+        if(result.jurisdiction) {
+            console.log(result.jurisdiction);
         }
-        if(result.data) {
-            document.getElementById("content1").innerHTML = result.data;
+        if(result.indicators) {
+            console.log(result.indicators);
         }
     })
 	//catch all errors to not kill all

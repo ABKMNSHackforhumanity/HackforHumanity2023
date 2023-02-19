@@ -39,7 +39,7 @@ function identify(streetIn, cityIn) {
 	};
 
 	fetch("https://geocoding.geo.census.gov/geocoder/geographies/address", {
-		method: "POST", // or 'PUT'
+		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
@@ -48,16 +48,15 @@ function identify(streetIn, cityIn) {
 		.then((response) => response.json())
 		.then((data) => {
 			console.log("Success:", data);
-            //if(data.result.geographies.Census_Blocks[0].GEOID)
-            //  geoId = data.result.geographies.Census_Blocks[0].GEOID;
+            if(data['result']['geographies']['Census Blocks'][0]['GEOID'])
+            	geoId = data['result']['geographies']['Census Blocks'][0]['GEOID'];
 		})
 		.catch((error) => {
 			console.error("Error:", error);
 		});
-
-	var geoId = response['result']['geographies']['Census Blocks'][0]['GEOID'];
+	// database is only as specific as the first 11 digits of the geoid, so the last 4 are cut off
 	geoId = geoId.slice(0, 10);
-
+	// Binary search database for location
 	var length = parseInt(JSON.stringify(count))
 	var start = 0;
 	var end = length - 1;
