@@ -1,11 +1,15 @@
-import logo from './logo.svg';
 import Search from './search.jsx'
 import './App.css';
+import Leadmap from './map.js'
 
 function App() {
   return (
     <div className="App">
-      <Search></Search>
+      <p></p>
+      <Search title="Street Address..."></Search> 
+      <Search title="City..."></Search>
+      <p></p>
+      <Leadmap></Leadmap>
     </div>
   );
 }
