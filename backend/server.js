@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.get('/', (req, res) => {
+app.put('/', (req, res) => {
 	let input = req.body;
 	res.send(identify(input['street'],input['city']))
 })
