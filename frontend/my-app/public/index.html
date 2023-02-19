@@ -25,6 +25,25 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <script type="text/javascript">
+      function GetAPI(){
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          if(data.water) {
+              document.getElementById("water").innerHTML = JSON.stringify(data.water);
+            }
+        })
+        .catch((error) => console.log('error', error));
+    
+    }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
