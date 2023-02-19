@@ -5,11 +5,16 @@ const fetch = require("node-fetch");
 const json = require("json");
 const express = require('express');
 const bodyParser = require('body-parser');
+const port = 5000;
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
+app.listen(port, () => {
+    console.log(`Server started on port ${port}`);
+  });
 
 app.put('/', (req, res) => {
 	let input = req.body;
@@ -43,6 +48,8 @@ function identify(streetIn, cityIn) {
 		.then((response) => response.json())
 		.then((data) => {
 			console.log("Success:", data);
+            //if(data.result.geographies.Census_Blocks[0].GEOID)
+            //  geoId = data.result.geographies.Census_Blocks[0].GEOID;
 		})
 		.catch((error) => {
 			console.error("Error:", error);
